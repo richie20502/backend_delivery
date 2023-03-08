@@ -1,6 +1,5 @@
 require('dotenv').config()
 const promise = require('bluebird');
-const pg = require('pg-promise/typescript/pg-subset');
 const options = {
     promiseLib: promise,
     query : (e) =>{}
