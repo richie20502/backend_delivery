@@ -55,12 +55,14 @@ module.exports = {
                     email: myUser.email,
                     phone: myUser.phone,
                     image: myUser.image,
+                    password: myUser.password,
                     session_token : `JWT ${token}`
                 }
 
                 return res.status(201).json({
                     success: true,
-                    data: data
+                    data: data,
+                    message: "Ingresaste bien"
                 });
             }else{
                 return res.status(401).json({
