@@ -1,4 +1,5 @@
 const User = require('../models/user');
+const Role = require('../models/roles');
 const jwt = require('jsonwebtoken');
 const keys = require('../config/keys');
 module.exports = {
@@ -18,6 +19,7 @@ module.exports = {
         try {
             const user = req.body;
             const data = await User.create(user);
+            await Role.create(data.id,1); //  crea el cliente con rol cliente
             return res.status(201).json({
                 success: true,
                 message : "El registro se realizo correctamente",
