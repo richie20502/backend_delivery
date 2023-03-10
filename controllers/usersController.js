@@ -59,7 +59,7 @@ module.exports = {
                     image: myUser.image,
                     password: myUser.password,
                     session_token : `JWT ${token}`,
-                    rolse:myUser.roles
+                    roles:myUser.roles
                 }
 
                 return res.status(201).json({
