@@ -8,29 +8,10 @@ CREATE TABLE roles(
 	updated_at TIMESTAMP(0) NOT NULL
 );
 
-INSERT INTO roles(
-	name,
-	route,
-	created_at,
-	updated_at
-)
-VALUES(
-	'CLIENTE',
-	'client/products/list',
-	'2023-01-01',
-	'2023-01-01'
-),
-VALUES(
-	'RESTAURANTE',
-	'restaurant/orders/list',
-	'2023-01-01',
-	'2023-01-01'
-),VALUES(
-	'REPARTIDOR',
-	'delivery/orders/list',
-	'2023-01-01',
-	'2023-01-01'
-);
+INSERT INTO roles(name,route,created_at,updated_at)
+VALUES('CLIENTE','client/products/list','2023-01-01','2023-01-01'),
+('RESTAURANTE','restaurant/orders/list','2023-01-01','2023-01-01'),
+('REPARTIDOR','delivery/orders/list','2023-01-01','2023-01-01');
 
 DROP TABLE IF EXISTS users CASCADE;
 CREATE TABLE users(
