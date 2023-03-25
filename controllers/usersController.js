@@ -2,6 +2,7 @@ const User = require('../models/user');
 const Role = require('../models/roles');
 const jwt = require('jsonwebtoken');
 const keys = require('../config/keys');
+const storage = require('../utils/cloud_storage');
 module.exports = {
     async getAll(req, res, next){
         try {
@@ -18,6 +19,36 @@ module.exports = {
     async register(req, res, next){
         try {
             const user = req.body;
+            const data = await User.create(user);
+            await Role.create(data.id,1); //  crea el cliente con rol cliente
+            return res.status(201).json({
+                success: true,
+                message : "El registro se realizo correctamente",
+                data : data.id
+            });
+        } catch (error) {
+            return res.status(501).json({
+                success: false,
+                message: 'Error al obtener la ruta',
+                error: error
+            }); 
+        }
+    },
+
+    async registerWithImage(req, res, next){
+        try {
+
+            const user = JSON.parse(req.body.user);
+            consoile.log("Datos enviados del usuario:");
+            consoile.log(user);
+            const files = req.files;
+            if(files.length > 0 ){
+                const pathImage = `image_${Date.now()}`;  //nombre del archivo
+                const url = await storage(files[0],pathImage);
+                if (url != undefined && url != null ){
+                    user.image = url;
+                }
+            }
             const data = await User.create(user);
             await Role.create(data.id,1); //  crea el cliente con rol cliente
             return res.status(201).json({

@@ -38,9 +38,9 @@ app.set('port', port);
 /**
  * se jecutan las rutas de userRoutes importadas
 */
-users(app);
+users(app, upload);
 
-server.listen(3000, '192.168.1.5' || 'localhost', function(){
+server.listen(3000, '192.168.1.4' || 'localhost', function(){
     console.log('Aplicacion de nodeJS '+ process.pid + " Iniciada ...........");
 });
 
