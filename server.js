@@ -8,10 +8,21 @@ const multer = require('multer');
 const admin = require('firebase-admin');
 const serviceAccount = require('./serviceAccountKey.json');
 /*
+Se inicializan firebase admin
+*/
+admin.initializeApp({
+    credential:admin.credential.cert(serviceAccount)
+});
+
+const upload = multer({
+    storage : multer.memoryStorage()
+});
+
+/*
 RUTAS
 */
-
 const users = require('./routes/userRoutes');
+const { credential } = require('firebase-admin');
 
 const port = process.env.PORT || 3000;
 app.use(logger('dev'));
