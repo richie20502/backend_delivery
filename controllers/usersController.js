@@ -16,6 +16,23 @@ module.exports = {
             });
         } 
     },
+    async findById(req, res, next){
+        console.log('parametros recibidos');
+        console.log(req.params);
+        try {
+            const id = req.params.id;
+            console.log('parametros recibidos');
+            console.log(req.params);
+            const data = await User.findByUserId(id);
+            return res.status(201).json(data);
+        } catch (error) {
+            return res.status(501).json({
+                success: false,
+                message: 'Error al obtener la ruta',
+                error: error
+            });
+        } 
+    },
     async register(req, res, next){
         try {
             const user = req.body;
@@ -37,10 +54,7 @@ module.exports = {
 
     async registerWithImage(req, res, next){
         try {
-
             const user = JSON.parse(req.body.user);
-            consoile.log("Datos enviados del usuario:");
-            consoile.log(user);
             const files = req.files;
             if(files.length > 0 ){
                 const pathImage = `image_${Date.now()}`;  //nombre del archivo
@@ -113,5 +127,33 @@ module.exports = {
                 error: error
             });
         }
+    },
+
+    async update(req, res, next){
+        try {
+            const user = JSON.parse(req.body.user);
+            const files = req.files;
+            if(files.length > 0 ){
+                const pathImage = `image_${Date.now()}`;  //nombre del archivo
+                const url = await storage(files[0],pathImage);
+                if (url != undefined && url != null ){
+                    user.image = url;
+                }
+            }
+            await User.update(user);
+            return res.status(201).json({
+                success: true,
+                message : "Los datos del usuario se actualizaron correctamente"
+            });
+        } catch (error) {
+            console.log(error);
+            return res.status(501).json({
+                success: false,
+                message: 'Hubo un error con la actualizacion de datos del usuario',
+                error: error
+            }); 
+        }
     }
+
+
 };
