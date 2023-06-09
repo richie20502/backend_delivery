@@ -106,6 +106,8 @@ module.exports = {
                     session_token : `JWT ${token}`,
                     roles:myUser.roles
                 }
+                
+                await User.updateToken(myUser.id,`JWT ${token}`);
 
                 return res.status(201).json({
                     success: true,
@@ -154,6 +156,4 @@ module.exports = {
             }); 
         }
     }
-
-
 };

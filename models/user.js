@@ -66,8 +66,7 @@ User.isPasswordMatched = (userPassword, hash) =>{
         return true;
     }
     return false;
-}
-
+},
 User.update =  (user) => {
     const sql = `
     UPDATE 
@@ -89,6 +88,24 @@ User.update =  (user) => {
         user.phone,
         user.image,
         new Date()
+    ]);
+},
+User.updateToken =  (id,token) => {
+    console.log(id);
+    console.log(token);
+    const sql = `
+    UPDATE 
+        users
+    SET
+        session_token = $2
+        
+    WHERE
+        id = $1
+    `;
+ 
+    return db.none(sql,[
+        id,
+        token
     ]);
 },
 User.findByUserId = (id) => {
